@@ -17,13 +17,15 @@ public class CalculateAverageOptimised {
         var allStats = br.lines().parallel().collect(Collectors.groupingBy(line -> line.substring(0, line.indexOf(';')),
         Collectors.summarizingDouble(line -> Double.parseDouble(line.substring(line.indexOf(';')+1, line.length())))));
 
-        TreeMap<String, String> map = new TreeMap<>();
-        for(Map.Entry<String, DoubleSummaryStatistics> e : allStats.entrySet()) {
-            var stats = e.getValue();
-            map.put(e.getKey(), String.format("%.1f/%.1f/%.1f", stats.getMin(), stats.getAverage(), stats.getMax()));
-        }
+        var result = allStats.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), 
+            e -> {
+                var stats = e.getValue();
+                return String.format("%.1f/%.1f/%.1f", stats.getMin(), stats.getAverage(), stats.getMax());
+            },
+            (l, r) -> r,
+            TreeMap::new));
 
-        System.out.println(map);
+        System.out.println(result);
     }
     
 }
