@@ -52,20 +52,20 @@ public class CalculateAverage_Sachin {
 
 }
 
-class Measurement {
+class Measurements {
     long count;
     double avg;
     double minTemp;
     double maxTemp;
 
-    public Measurement() {
+    public Measurements() {
         count = 0;
         avg = 0;
         minTemp = 1000;
         maxTemp = -1000;
     }
 
-    public Measurement(double temp) {
+    public Measurements(double temp) {
         count = 1;
         avg = temp;
         minTemp = temp;
